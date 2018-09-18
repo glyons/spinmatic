@@ -61,9 +61,6 @@ void setup()
 
   StartUpSound();
 
-  // Timer
- 
-  InitTimer();
 } 
 
  
@@ -107,6 +104,7 @@ void loop()
           MiddleTextDisplay("Finished!");
           BeepSound();
           myservo.detach(); 
+          Clock=0;
       }
     }  
 }
@@ -142,6 +140,7 @@ void DoButtonLogic()
    {
         BeepSound();
         myservo.attach(SERVO_PIN); 
+        InitTimer();
         SetupTimerMode=false; // Start timer;
    }
    else
@@ -150,18 +149,19 @@ void DoButtonLogic()
         if (Stop)
         {
           // Finished
-          ResetTimer();
+          InitTimer();
           buttonConfirm=true;
           SetupTimerMode =true;
+          delay(500);
+          buttonConfirm=false;
         }
         else
         {
           // Pause / Play
-          Paused = !Paused;
+         //  Paused = !Paused;
           if (Paused) 
           {
             BeepSound();
-            
           }
           delay(500);
         }
