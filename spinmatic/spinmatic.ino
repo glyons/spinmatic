@@ -107,7 +107,7 @@ void loop()
           myservo.detach(); 
           Clock=0;
           //Reset Encoder
-          myEnc.write(duration);
+         // myEnc.write(duration/TIMER_INCREMENT);
       }
     }  
 }
