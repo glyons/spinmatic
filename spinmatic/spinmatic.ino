@@ -40,6 +40,7 @@ int interval =10;  // rotate every X seconds
 int INITIAL_DURATION =30; // duration of development in seconds
 int Twists =2;
 int TIMER_INCREMENT = 15; // seconds
+int duration = 0;
 
 // Encoder Values
 long encoderPrevValue  = 0;
@@ -70,7 +71,7 @@ void loop()
     
     if (SetupTimerMode)
     {
-      int duration = SetupCountdownTimer(INITIAL_DURATION, TIMER_INCREMENT);
+      duration = SetupCountdownTimer(INITIAL_DURATION, TIMER_INCREMENT);
       SetTimer(duration); 
     }
     else
@@ -105,6 +106,8 @@ void loop()
           BeepSound();
           myservo.detach(); 
           Clock=0;
+          //Reset Encoder
+          myEnc.write(duration);
       }
     }  
 }
@@ -170,7 +173,7 @@ void DoButtonLogic()
 
 int SetupCountdownTimer(int initDuration, int increment)
 {
-  int totalSeconds = GetEncoderValue()*15;
+  int totalSeconds = GetEncoderValue()*increment;
   int mins = (totalSeconds / 60) % 60;
   int secs=  totalSeconds - mins*60;
   UpdateDisplay(mins, secs, false);
